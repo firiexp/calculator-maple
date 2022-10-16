@@ -1,9 +1,9 @@
 import { Link as ChakraLink, Button } from '@chakra-ui/react'
 
-import { Container } from './Container'
+import Container from './Container'
 
-export const CTA = () => (
-  <Container
+export default function CTA() {
+  return <Container
     flexDirection="row"
     position="fixed"
     bottom={0}
@@ -38,4 +38,4 @@ export const CTA = () => (
       View Repo
     </Button>
   </Container>
-)
+}

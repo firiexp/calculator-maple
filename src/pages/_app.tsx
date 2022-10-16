@@ -1,7 +1,8 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import { ChakraProvider } from '@chakra-ui/react'
 
-import theme from '../theme'
 import { AppProps } from 'next/app'
+import theme from '../theme'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

@@ -3,23 +3,22 @@ import {
   List,
   ListIcon,
   ListItem,
-  Flex,
   Button,
   HStack,
 } from '@chakra-ui/react'
 import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
+import Hero from '../components/Hero'
+import Container from '../components/Container'
 import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { Footer } from '../components/Footer'
+import DarkModeSwitch from '../components/DarkModeSwitch'
 
-const Index = () => (
-  <Container>
+function Index() {
+  return <Container>
     <HStack as="header" py={4} spacing='12px'>
-      <Button colorScheme='blue'>Button</Button>
-      <Button colorScheme='red'>Button2</Button>
+        <Button colorScheme='blue'>Button</Button>
+        <Button colorScheme='red'>Button2</Button>
+        <Button colorScheme='yellow'>Button3</Button>
     </HStack>
     <Hero />
     <Main>
@@ -48,6 +47,6 @@ const Index = () => (
     <DarkModeSwitch />
 
   </Container>
-)
+}
 
 export default Index
