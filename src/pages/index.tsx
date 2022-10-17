@@ -10,7 +10,7 @@ import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
 
 import Hero from '../components/Hero'
 import Container from '../components/Container'
-import { Main } from '../components/Main'
+import Main from '../components/Main'
 import DarkModeSwitch from '../components/DarkModeSwitch'
 
 function Index() {

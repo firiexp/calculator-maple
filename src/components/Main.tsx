@@ -1,7 +1,7 @@
 import { Stack, StackProps } from '@chakra-ui/react'
 
-export const Main = (props: StackProps) => (
-  <Stack
+export default function Main(props: StackProps) {
+  return <Stack
     spacing="1.5rem"
     width="100%"
     maxWidth="48rem"
@@ -10,4 +10,4 @@ export const Main = (props: StackProps) => (
     px="1rem"
     {...props}
   />
-)
+}
