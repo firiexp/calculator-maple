@@ -3,7 +3,6 @@ import { Flex, FlexProps } from '@chakra-ui/react'
 export default function Container(props: FlexProps) {
   return <Flex
     direction="column"
-    alignItems="center"
     justifyContent="flex-start"
     bg="gray.50"
     color="black"
@@ -12,6 +11,7 @@ export default function Container(props: FlexProps) {
       color: 'white',
     }}
     transition="all 0.15s ease-out"
+    minWidth='max-content'
     {...props}
   />
 }
