@@ -3,19 +3,23 @@ import NextLink from 'next/link';
 import Container from '../components/Container';
 import Main from '../components/Main';
 import Header from '../components/Header';
+import SiteHead from '../components/SiteHead';
 
 function Index() {
     return (
-        <Container>
-            <Header />
-            <Main>
-                <Heading>Head!!!</Heading>
-                <Text fontSize='xl'>Test</Text>
-                <NextLink href='/sf' passHref>
-                    <ChakraLink>スターフォースシミュレーター</ChakraLink>
-                </NextLink>
-            </Main>
-        </Container>
+        <>
+            <SiteHead />
+            <Container>
+                <Header />
+                <Main>
+                    <Heading>My first app</Heading>
+                    <Text fontSize='xl'>Next.js, Chakra UI</Text>
+                    <NextLink href='/sf' passHref>
+                        <ChakraLink>スターフォースシミュレーター</ChakraLink>
+                    </NextLink>
+                </Main>
+            </Container>
+        </>
     );
 }
 

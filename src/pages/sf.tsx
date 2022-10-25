@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Container from '../components/Container';
 import Header from '../components/Header';
 import Main from '../components/Main';
+import SiteHead from '../components/SiteHead';
 
 function Sf() {
     const [sfData, setSfData] = useState({
@@ -99,80 +100,87 @@ function Sf() {
 
     const numberFormatter = new Intl.NumberFormat();
     return (
-        <Container>
-            <Header />
-            <Main>
-                <VStack>
-                    <Text mt='30px' mb='10px' p='5px' border='2px' borderColor='purple.100'>
-                        {getCount()}
-                    </Text>
-                    <HStack>
-                        <Button colorScheme='blue' onClick={enhancebuttonClick}>
-                            強化
+        <>
+            <SiteHead title='スターフォースシミュレーター' />
+            <Container>
+                <Header />
+                <Main>
+                    <VStack>
+                        <Text mt='30px' mb='10px' p='5px' border='2px' borderColor='purple.100'>
+                            {getCount()}
+                        </Text>
+                        <HStack>
+                            <Button colorScheme='blue' onClick={enhancebuttonClick}>
+                                強化
+                            </Button>
+                            <Button colorScheme='red'>復元</Button>
+                        </HStack>
+                        <Text fontSize='xl'>これまでの強化費用 : {numberFormatter.format(sfData.usedCost)}</Text>
+                    </VStack>
+                    <Heading mt='30px' mb='10px' p='5px' colorScheme='cyan'>
+                        設定
+                    </Heading>
+                    <VStack alignItems='start' p='10px' border='1px' borderColor='gray.400' borderRadius='md'>
+                        <Checkbox
+                            onChange={(e) =>
+                                setSfData((prevState) => ({ ...prevState, discounted: e.target.checked }))
+                            }>
+                            30%割引
+                        </Checkbox>
+                        <Checkbox
+                            onChange={(e) =>
+                                setSfData((prevState) => ({ ...prevState, allSuccessEvent: e.target.checked }))
+                            }>
+                            5/10/15星強化時100%成功
+                        </Checkbox>
+                        <Checkbox
+                            onChange={(e) =>
+                                setSfData((prevState) => ({ ...prevState, avoidDestroy: e.target.checked }))
+                            }>
+                            破壊防止
+                        </Checkbox>
+                        <HStack>
+                            <Text>装備のレベル</Text>
+                            <NumberInput
+                                defaultValue={150}
+                                min={1}
+                                max={1000}
+                                onChange={(e) =>
+                                    setSfData((prevState) => ({ ...prevState, equippedLevel: parseInt(e, 10) }))
+                                }>
+                                <NumberInputField />
+                            </NumberInput>
+                        </HStack>
+                        <HStack>
+                            <Text>開始時の星</Text>
+                            <NumberInput
+                                defaultValue={0}
+                                min={0}
+                                max={24}
+                                onChange={(e) =>
+                                    setSfData((prevState) => ({ ...prevState, initialStar: parseInt(e, 10) }))
+                                }>
+                                <NumberInputField />
+                            </NumberInput>
+                        </HStack>
+                        <HStack>
+                            <Text>装備復元費用</Text>
+                            <NumberInput
+                                defaultValue={0}
+                                min={0}
+                                onChange={(e) =>
+                                    setSfData((prevState) => ({ ...prevState, retrivedItemValue: parseInt(e, 10) }))
+                                }>
+                                <NumberInputField />
+                            </NumberInput>
+                        </HStack>
+                        <Button colorScheme='blue' size='sm' onClick={resetbuttonClick}>
+                            リセット
                         </Button>
-                        <Button colorScheme='red'>復元</Button>
-                    </HStack>
-                    <Text fontSize='xl'>これまでの強化費用 : {numberFormatter.format(sfData.usedCost)}</Text>
-                </VStack>
-                <Heading mt='30px' mb='10px' p='5px' colorScheme='cyan'>
-                    設定
-                </Heading>
-                <VStack alignItems='start' p='10px' border='1px' borderColor='gray.400' borderRadius='md'>
-                    <Checkbox
-                        onChange={(e) => setSfData((prevState) => ({ ...prevState, discounted: e.target.checked }))}>
-                        30%割引
-                    </Checkbox>
-                    <Checkbox
-                        onChange={(e) =>
-                            setSfData((prevState) => ({ ...prevState, allSuccessEvent: e.target.checked }))
-                        }>
-                        5/10/15星強化時100%成功
-                    </Checkbox>
-                    <Checkbox
-                        onChange={(e) => setSfData((prevState) => ({ ...prevState, avoidDestroy: e.target.checked }))}>
-                        破壊防止
-                    </Checkbox>
-                    <HStack>
-                        <Text>装備のレベル</Text>
-                        <NumberInput
-                            defaultValue={150}
-                            min={1}
-                            max={1000}
-                            onChange={(e) =>
-                                setSfData((prevState) => ({ ...prevState, equippedLevel: parseInt(e, 10) }))
-                            }>
-                            <NumberInputField />
-                        </NumberInput>
-                    </HStack>
-                    <HStack>
-                        <Text>開始時の星</Text>
-                        <NumberInput
-                            defaultValue={0}
-                            min={0}
-                            max={24}
-                            onChange={(e) =>
-                                setSfData((prevState) => ({ ...prevState, initialStar: parseInt(e, 10) }))
-                            }>
-                            <NumberInputField />
-                        </NumberInput>
-                    </HStack>
-                    <HStack>
-                        <Text>装備復元費用</Text>
-                        <NumberInput
-                            defaultValue={0}
-                            min={0}
-                            onChange={(e) =>
-                                setSfData((prevState) => ({ ...prevState, retrivedItemValue: parseInt(e, 10) }))
-                            }>
-                            <NumberInputField />
-                        </NumberInput>
-                    </HStack>
-                    <Button colorScheme='blue' size='sm' onClick={resetbuttonClick}>
-                        リセット
-                    </Button>
-                </VStack>
-            </Main>
-        </Container>
+                    </VStack>
+                </Main>
+            </Container>
+        </>
     );
 }
 
