@@ -13,7 +13,7 @@ function Index() {
                 <Header />
                 <Main>
                     <Heading>My first app</Heading>
-                    <Text fontSize='xl'>Next.js, Chakra UI</Text>
+                    <Text fontSize='xl'>Next.js, TypeScript, Chakra UI</Text>
                     <NextLink href='/sf' passHref>
                         <ChakraLink>スターフォースシミュレーター</ChakraLink>
                     </NextLink>

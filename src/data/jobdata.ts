@@ -7,7 +7,7 @@ type Job = {
     equippableWeapon: string[];
 };
 
-export const jobdata: { [k: string]: Job } = {
+const jobData: { [k: string]: Job } = {
     Hero: {
         JMSName: 'ヒーロー',
         mainStats: ['STR'],
@@ -304,4 +304,4 @@ export const jobdata: { [k: string]: Job } = {
     },
 };
 
-export default jobdata;
+export default jobData;
