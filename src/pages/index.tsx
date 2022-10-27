@@ -12,10 +12,13 @@ function Index() {
             <Container>
                 <Header />
                 <Main>
-                    <Heading>My first app</Heading>
+                    <Heading>Maple Tools</Heading>
                     <Text fontSize='xl'>Next.js, TypeScript, Chakra UI</Text>
                     <NextLink href='/sf' passHref>
                         <ChakraLink>スターフォースシミュレーター</ChakraLink>
+                    </NextLink>
+                    <NextLink href='/statcalculator' passHref>
+                        <ChakraLink>ステータス計算機</ChakraLink>
                     </NextLink>
                 </Main>
             </Container>
