@@ -3,7 +3,7 @@ type IndivisualWeaponData = {
     weaponMultiplier: number;
 };
 
-export const WeaponData: { [k: string]: IndivisualWeaponData } = {
+const weaponData: { [k: string]: IndivisualWeaponData } = {
     Wand: {
         JMSName: '杖 (ワンド)',
         weaponMultiplier: 1.2,
@@ -24,7 +24,7 @@ export const WeaponData: { [k: string]: IndivisualWeaponData } = {
         JMSName: 'マジックガントレット',
         weaponMultiplier: 1.2,
     },
-    OHBluntWeapon: {
+    OHBW: {
         JMSName: '片手鈍器',
         weaponMultiplier: 1.2,
     },
@@ -150,4 +150,4 @@ export const WeaponData: { [k: string]: IndivisualWeaponData } = {
     },
 };
 
-export default WeaponData;
+export default weaponData;
