@@ -1,20 +1,21 @@
 import { Button, FormControl, Grid, GridItem, HStack, Input, Select, Stack, Text, Tooltip } from '@chakra-ui/react';
 import { useForm, useWatch } from 'react-hook-form';
 import { QuestionIcon } from '@chakra-ui/icons';
-import { useState } from 'react';
 import jobData from '../data/jobdata';
 import weaponData from '../data/weapondata';
 import { InputStats, OutputStats } from '../data/formtype';
 
-function StatForm() {
+type Props = {
+  updateResult: (stats: OutputStats) => void;
+};
+
+function StatInputForm({ updateResult }: Props) {
   const { register, control, handleSubmit } = useForm<InputStats>({});
   const watchJob = useWatch({
     control,
     name: 'job',
     defaultValue: '',
   });
-
-  const [result, setResult] = useState<OutputStats | undefined>(undefined);
 
   const CalcResult = (player: InputStats): OutputStats => {
     const baseStats = player.playerlevel * 5 + 14;
@@ -49,7 +50,7 @@ function StatForm() {
     <form
       onSubmit={handleSubmit((data) => {
         try {
-          setResult(CalcResult(data));
+          updateResult(CalcResult(data));
         } catch (e) {
           console.log(e);
         }
@@ -394,4 +395,4 @@ function StatForm() {
   );
 }
 
-export default StatForm;
+export default StatInputForm;
