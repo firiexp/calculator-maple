@@ -1,39 +1,10 @@
 import { Button, FormControl, Grid, GridItem, HStack, Input, Select, Stack, Text, Tooltip } from '@chakra-ui/react';
 import { useForm, useWatch } from 'react-hook-form';
 import { QuestionIcon } from '@chakra-ui/icons';
+import { useState } from 'react';
 import jobData from '../data/jobdata';
 import weaponData from '../data/weapondata';
-import { useState } from 'react';
-
-type InputStats = {
-  job: string;
-  weapon: string;
-  playerlevel: number;
-  statATT: number;
-  mainStatsWithMH: number;
-  mainStatsWithoutMH: number;
-  subStatsWithBuff: number;
-  subStatsWithoutBuff: number;
-  subStatsBuffAmount: number;
-  MHlevel: number;
-  ArcaneSymbolStats: number;
-  AuthenticSymbolStats: number;
-  HyperStats: number;
-  AbilityStats: number;
-  UnionAttackerStats: number;
-  DamagePercent: number;
-  BossDamagePercent: number;
-  FinalDamagePercent: number;
-  IgnoreDEFPercent: number;
-  CriticalDamagePercent: number;
-  ATTPercent: number;
-};
-
-type OutputStats = {
-  mainStatsPercent: number;
-  subStatsPercent: number;
-  OverAllAttackPower: number;
-};
+import { InputStats, OutputStats } from '../data/formtype';
 
 function StatForm() {
   const { register, control, handleSubmit } = useForm<InputStats>({});
@@ -324,7 +295,13 @@ function StatForm() {
               </HStack>
             </GridItem>
             <GridItem>
-              <Input placeholder='50' size='sm' />
+              <Input
+                placeholder='50'
+                size='sm'
+                {...register('DamagePercent', {
+                  valueAsNumber: true,
+                })}
+              />
             </GridItem>
 
             <GridItem bg='red.100'>
@@ -333,7 +310,13 @@ function StatForm() {
               </HStack>
             </GridItem>
             <GridItem>
-              <Input placeholder='450' size='sm' />
+              <Input
+                placeholder='450'
+                size='sm'
+                {...register('BossDamagePercent', {
+                  valueAsNumber: true,
+                })}
+              />
             </GridItem>
 
             <GridItem bg='red.100'>
@@ -342,7 +325,13 @@ function StatForm() {
               </HStack>
             </GridItem>
             <GridItem>
-              <Input placeholder='90.40' size='sm' />
+              <Input
+                placeholder='90.40'
+                size='sm'
+                {...register('FinalDamagePercent', {
+                  valueAsNumber: true,
+                })}
+              />
             </GridItem>
 
             <GridItem bg='red.100'>
@@ -351,7 +340,13 @@ function StatForm() {
               </HStack>
             </GridItem>
             <GridItem>
-              <Input placeholder='95.00' size='sm' />
+              <Input
+                placeholder='95.00'
+                size='sm'
+                {...register('IgnoreDEFPercent', {
+                  valueAsNumber: true,
+                })}
+              />
             </GridItem>
 
             <GridItem bg='red.100'>
@@ -360,7 +355,13 @@ function StatForm() {
               </HStack>
             </GridItem>
             <GridItem>
-              <Input placeholder='90' size='sm' />
+              <Input
+                placeholder='90'
+                size='sm'
+                {...register('CriticalDamagePercent', {
+                  valueAsNumber: true,
+                })}
+              />
             </GridItem>
 
             <GridItem bg='red.100'>
@@ -369,10 +370,19 @@ function StatForm() {
                   {jobData[watchJob] !== undefined &&
                     (jobData[watchJob].mainStats.includes('INT') ? '魔力' : '攻撃力').concat('% (合計)')}
                 </Text>
+                <Tooltip label='装備、ファミリア、ファミリアバッジの合計' fontSize='sm'>
+                  <QuestionIcon />
+                </Tooltip>
               </HStack>
             </GridItem>
             <GridItem>
-              <Input placeholder='90' size='sm' />
+              <Input
+                placeholder='90'
+                size='sm'
+                {...register('ATTPercent', {
+                  valueAsNumber: true,
+                })}
+              />
             </GridItem>
           </Grid>
           <Button mt={4} colorScheme='teal' type='submit'>
