@@ -3,9 +3,9 @@ import Container from '../components/Container';
 import Main from '../components/Main';
 import Header from '../components/Header';
 import SiteHead from '../components/SiteHead';
-import StatInputForm from '../components/statInputForm';
+import StatInputForm from '../components/StatInputForm';
 import { OutputStats } from '../data/formtype';
-import StatOutput from '../components/statOutput';
+import StatOutput from '../components/StatOutput';
 
 function StatCalculator() {
   const [result, setResult] = useState<OutputStats | undefined>(undefined);

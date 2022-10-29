@@ -4,6 +4,7 @@ import { QuestionIcon } from '@chakra-ui/icons';
 import jobData from '../data/jobdata';
 import weaponData from '../data/weapondata';
 import { InputStats, OutputStats } from '../data/formtype';
+import calcStats from '../lib/calcStats';
 
 type Props = {
   updateResult: (stats: OutputStats) => void;
@@ -17,40 +18,11 @@ function StatInputForm({ updateResult }: Props) {
     defaultValue: '',
   });
 
-  const CalcResult = (player: InputStats): OutputStats => {
-    const baseStats = player.playerlevel * 5 + 14;
-    const CombinedStats = player.mainStatsWithMH * 4 + player.subStatsWithoutBuff;
-    const calcStatATT = (ATT: number) => {
-      const innerATT = Math.round((Math.floor(weaponData[player.weapon].weaponMultiplier) * CombinedStats * ATT) / 100);
-      return innerATT * (1 + player.DamagePercent / 100) * (1 + player.FinalDamagePercent / 100);
-    };
-    const buffedATT = (() => {
-      let ok = 0;
-      let ng = 1;
-      while (calcStatATT(ng) <= player.statATT) ng *= 2;
-      while (ng - ok > 1) {
-        const mid = Math.floor((ok + ng) / 2);
-        if (calcStatATT(mid) <= player.statATT) ok = mid;
-        else ng = mid;
-      }
-      return ok;
-    })();
-    return {
-      mainStatsPercent: Math.ceil(
-        100 * ((player.mainStatsWithMH - player.mainStatsWithoutMH) / ((baseStats * player.MHlevel) / 100) - 1)
-      ),
-      subStatsPercent: Math.ceil(
-        100 * ((player.subStatsWithBuff - player.subStatsWithoutBuff) / (player.subStatsBuffAmount * 0.01) - 1)
-      ),
-      OverAllAttackPower: (Math.floor(weaponData[player.weapon].weaponMultiplier) * CombinedStats) / 100,
-    };
-  };
-
   return (
     <form
       onSubmit={handleSubmit((data) => {
         try {
-          updateResult(CalcResult(data));
+          updateResult(CalcStats(data));
         } catch (e) {
           console.log(e);
         }
@@ -387,7 +359,7 @@ function StatInputForm({ updateResult }: Props) {
             </GridItem>
           </Grid>
           <Button mt={4} colorScheme='teal' type='submit'>
-            Submit
+            計算
           </Button>
         </Stack>
       </FormControl>
