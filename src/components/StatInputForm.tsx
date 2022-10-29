@@ -4,7 +4,7 @@ import { QuestionIcon } from '@chakra-ui/icons';
 import jobData from '../data/jobdata';
 import weaponData from '../data/weapondata';
 import { InputStats, OutputStats } from '../data/formtype';
-import calcStats from '../lib/calcStats';
+import CalcStats from '../lib/CalcStats';
 
 type Props = {
   updateResult: (stats: OutputStats) => void;
@@ -89,7 +89,7 @@ function StatInputForm({ updateResult }: Props) {
             </GridItem>
           </Grid>
 
-          <Grid templateRows='repeat(5, 1fr)' templateColumns='1fr 3fr' rowGap='1'>
+          <Grid templateRows='repeat(6, 1fr)' templateColumns='1fr 3fr' rowGap='1'>
             <GridItem bg='blue.100'>
               <HStack>
                 <Text p='1'>{watchJob !== '' && jobData[watchJob].mainStats.join('+').concat(' (MH適用)')}</Text>
@@ -121,6 +121,24 @@ function StatInputForm({ updateResult }: Props) {
                 placeholder='49000'
                 size='sm'
                 {...register('mainStatsWithoutMH', {
+                  valueAsNumber: true,
+                })}
+              />
+            </GridItem>
+
+            <GridItem bg='blue.100'>
+              <HStack>
+                <Text p='1'>MHレベル</Text>
+                <Tooltip label='メイプルヒーロー系スキルのレベル' fontSize='sm'>
+                  <QuestionIcon />
+                </Tooltip>
+              </HStack>
+            </GridItem>
+            <GridItem>
+              <Input
+                placeholder='30'
+                size='sm'
+                {...register('MHlevel', {
                   valueAsNumber: true,
                 })}
               />
@@ -164,17 +182,14 @@ function StatInputForm({ updateResult }: Props) {
 
             <GridItem bg='blue.100'>
               <HStack>
-                <Text p='1'>MHレベル</Text>
-                <Tooltip label='メイプルヒーロー系スキルのレベル' fontSize='sm'>
-                  <QuestionIcon />
-                </Tooltip>
+                <Text p='1'>{watchJob !== '' && jobData[watchJob].subStats.join('+').concat(' バフ量')}</Text>
               </HStack>
             </GridItem>
             <GridItem>
               <Input
-                placeholder='30'
+                placeholder='10'
                 size='sm'
-                {...register('MHlevel', {
+                {...register('subStatsBuffAmount', {
                   valueAsNumber: true,
                 })}
               />
