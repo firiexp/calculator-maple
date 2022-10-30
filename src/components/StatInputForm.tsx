@@ -4,7 +4,7 @@ import { QuestionIcon } from '@chakra-ui/icons';
 import jobData from '../data/jobdata';
 import weaponData from '../data/weapondata';
 import { InputStats, OutputStats } from '../data/formtype';
-import CalcStats from '../lib/CalcStats';
+import CalcOutputStats from '../lib/CalcOutputStats';
 
 type Props = {
   updateResult: (stats: OutputStats) => void;
@@ -22,7 +22,7 @@ function StatInputForm({ updateResult }: Props) {
     <form
       onSubmit={handleSubmit((data) => {
         try {
-          updateResult(CalcStats(data));
+          updateResult(CalcOutputStats(data));
         } catch (e) {
           console.log(e);
         }

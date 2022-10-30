@@ -1,7 +1,7 @@
 import { InputStats, OutputStats } from '../data/formtype';
 import weaponData from '../data/weapondata';
 
-function CalcStats(player: InputStats): OutputStats {
+function CalcOutputStats(player: InputStats): OutputStats {
   const baseStats = player.playerlevel * 5 + 14;
   const CombinedStats = player.mainStatsWithMH * 4 + player.subStatsWithoutBuff;
   const calcStatATT = (ATT: number) => {
@@ -30,4 +30,4 @@ function CalcStats(player: InputStats): OutputStats {
   };
 }
 
-export default CalcStats;
+export default CalcOutputStats;
