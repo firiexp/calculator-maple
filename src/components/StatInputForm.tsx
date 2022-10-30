@@ -358,7 +358,9 @@ function StatInputForm({ updateResult }: Props) {
                   {jobData[watchJob] !== undefined &&
                     (jobData[watchJob].mainStats.includes('INT') ? '魔力' : '攻撃力').concat('% (合計)')}
                 </Text>
-                <Tooltip label='装備、ファミリア、ファミリアバッジの合計' fontSize='sm'>
+                <Tooltip
+                  label={`装備、ファミリア、ファミリアバッジ${watchJob === 'Hayato' ? '、剣気バフ' : ''}の合計`}
+                  fontSize='sm'>
                   <QuestionIcon />
                 </Tooltip>
               </HStack>
