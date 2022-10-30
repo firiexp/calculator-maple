@@ -20,10 +20,12 @@ export type InputStats = {
   IgnoreDEFPercent: number;
   CriticalDamagePercent: number;
   ATTPercent: number;
+  kannaHP?: number;
 };
 
 export type OutputStats = {
   mainStatsPercent: number;
   subStatsPercent: number;
   OverAllAttackPower: number;
+  baseATT: number;
 };

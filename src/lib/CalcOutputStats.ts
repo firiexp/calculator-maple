@@ -24,9 +24,10 @@ function CalcOutputStats(player: InputStats): OutputStats {
       100 * ((player.mainStatsWithMH - player.mainStatsWithoutMH) / ((baseStats * player.MHLevel) / 100) - 1)
     ),
     subStatsPercent: Math.ceil(
-      100 * ((player.subStatsWithBuff - player.subStatsWithoutBuff) / (player.subStatsBuffAmount * 0.01) - 1)
+      100 * ((player.subStatsWithBuff - player.subStatsWithoutBuff) / player.subStatsBuffAmount - 1)
     ),
     OverAllAttackPower: (Math.floor(weaponData[player.weapon].weaponMultiplier) * CombinedStats) / 100,
+    baseATT: (buffedATT - (player.kannaHP ? player.kannaHP : 0)) / (1 + player.ATTPercent / 100),
   };
 }
 
