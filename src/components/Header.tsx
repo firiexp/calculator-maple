@@ -1,4 +1,4 @@
-import { Link as ChakraLink, Flex, FlexProps, Spacer, Button } from '@chakra-ui/react';
+import { Link as ChakraLink, Flex, FlexProps, Spacer } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import DarkModeSwitch from './DarkModeSwitch';
 
