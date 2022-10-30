@@ -9,9 +9,6 @@ export default function Header(props: FlexProps) {
         <ChakraLink fontSize='2xl'>Maple Tools</ChakraLink>
       </NextLink>
       <Spacer />
-      <Button colorScheme='blue'>Button</Button>
-      <Button colorScheme='red'>Button2</Button>
-      <Button colorScheme='yellow'>Button3</Button>
       <DarkModeSwitch />
     </Flex>
   );
