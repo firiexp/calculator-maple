@@ -69,7 +69,7 @@ function StatInputForm({ updateResult }: Props) {
                 type='number'
                 placeholder='275'
                 size='sm'
-                {...register('playerlevel', {
+                {...register('playerLevel', {
                   valueAsNumber: true,
                 })}
               />
@@ -138,7 +138,7 @@ function StatInputForm({ updateResult }: Props) {
               <Input
                 placeholder='30'
                 size='sm'
-                {...register('MHlevel', {
+                {...register('MHLevel', {
                   valueAsNumber: true,
                 })}
               />
