@@ -2,7 +2,7 @@ import { InputStats, OutputStats } from '../data/formtype';
 import weaponData from '../data/weapondata';
 
 function CalcOutputStats(player: InputStats): OutputStats {
-  const baseStats = player.playerlevel * 5 + 14;
+  const baseStats = player.playerLevel * 5 + 14;
   const CombinedStats = player.mainStatsWithMH * 4 + player.subStatsWithoutBuff;
   const calcStatATT = (ATT: number) => {
     const innerATT = Math.round((Math.floor(weaponData[player.weapon].weaponMultiplier) * CombinedStats * ATT) / 100);
@@ -21,7 +21,7 @@ function CalcOutputStats(player: InputStats): OutputStats {
   })();
   return {
     mainStatsPercent: Math.ceil(
-      100 * ((player.mainStatsWithMH - player.mainStatsWithoutMH) / ((baseStats * player.MHlevel) / 100) - 1)
+      100 * ((player.mainStatsWithMH - player.mainStatsWithoutMH) / ((baseStats * player.MHLevel) / 100) - 1)
     ),
     subStatsPercent: Math.ceil(
       100 * ((player.subStatsWithBuff - player.subStatsWithoutBuff) / (player.subStatsBuffAmount * 0.01) - 1)

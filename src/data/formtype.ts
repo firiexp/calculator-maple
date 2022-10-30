@@ -1,14 +1,14 @@
 export type InputStats = {
   job: string;
   weapon: string;
-  playerlevel: number;
+  playerLevel: number;
   statATT: number;
   mainStatsWithMH: number;
   mainStatsWithoutMH: number;
   subStatsWithBuff: number;
   subStatsWithoutBuff: number;
   subStatsBuffAmount: number;
-  MHlevel: number;
+  MHLevel: number;
   ArcaneSymbolStats: number;
   AuthenticSymbolStats: number;
   HyperStats: number;
