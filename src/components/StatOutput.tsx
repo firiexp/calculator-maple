@@ -29,14 +29,11 @@ function statOutput({ result }: Props) {
 
       <GridItem>
         <HStack>
-          <Text p='1'>
-            {result.job !== '' &&
-              (jobData[result.job].mainStats.includes('INT') ? '魔力' : '攻撃力').concat('% (合計)')}
-          </Text>
+          <Text p='1'>{result.job !== '' && (jobData[result.job].mainStats.includes('INT') ? '魔力' : '攻撃力')}</Text>
         </HStack>
       </GridItem>
       <GridItem>
-        <Text p='1'>{result && result.subStatsPercent}</Text>
+        <Text p='1'>{result && result.baseATT}</Text>
       </GridItem>
     </Grid>
   );

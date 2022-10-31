@@ -15,8 +15,8 @@ function CalcOutputStats(player: InputStats): OutputStats {
   const unfixedMainStats = player.mainStatsWithoutMH - fixedMainStats;
 
   const calcStatATT = (ATT: number) => {
-    const innerATT = Math.round((Math.floor(weaponData[player.weapon].weaponMultiplier) * combinedStats * ATT) / 100);
-    return Math.round(innerATT * (1 + player.DamagePercent / 100) * (1 + player.FinalDamagePercent / 100));
+    const innerATT = Math.round((weaponData[player.weapon].weaponMultiplier * combinedStats * ATT) / 100);
+    return Math.floor(innerATT * (1 + player.DamagePercent / 100) * (1 + player.FinalDamagePercent / 100));
   };
 
   // 攻撃力を二分探索で求める
@@ -26,6 +26,7 @@ function CalcOutputStats(player: InputStats): OutputStats {
     while (calcStatATT(ng) <= player.statATT) ng *= 2;
     while (ng - ok > 1) {
       const mid = Math.floor((ok + ng) / 2);
+      console.log([mid, calcStatATT(mid)]);
       if (calcStatATT(mid) <= player.statATT) ok = mid;
       else ng = mid;
     }
@@ -44,12 +45,6 @@ function CalcOutputStats(player: InputStats): OutputStats {
         buffableMainStats <= approxbuffableMainStats + 2;
         buffableMainStats++
       ) {
-        console.log([
-          Percent,
-          buffableMainStats,
-          Math.floor(buffableMainStats * (1 + Percent / 100) + fixedMainStats),
-          Math.floor((buffableMainStats + MHAmount) * (1 + Percent / 100) + fixedMainStats),
-        ]);
         if (
           Math.floor(buffableMainStats * (1 + Percent / 100) + fixedMainStats) === player.mainStatsWithoutMH &&
           Math.floor((buffableMainStats + MHAmount) * (1 + Percent / 100) + fixedMainStats) === player.mainStatsWithMH
@@ -68,9 +63,10 @@ function CalcOutputStats(player: InputStats): OutputStats {
     subStatsPercent: Math.ceil(
       100 * ((player.subStatsWithBuff - player.subStatsWithoutBuff) / player.subStatsBuffAmount - 1)
     ),
-    baseATT:
+    baseATT: Math.ceil(
       (buffedATT - (player.kannaHP ? Math.floor(player.kannaHP / 700) : 0)) /
-      (1 + (player.ATTPercent + jobData[player.job].skillATTPercent) / 100),
+        (1 + (player.ATTPercent + jobData[player.job].skillATTPercent) / 100)
+    ),
     buffableMainStats,
     fixedMainStats,
   };

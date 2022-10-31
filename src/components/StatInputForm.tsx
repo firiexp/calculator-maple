@@ -53,8 +53,8 @@ function StatInputForm({ updateResult }: Props) {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = (e) => {
-        const text = e.target?.result;
+      reader.onload = (f) => {
+        const text = f.target?.result;
         if (typeof text !== 'string') return;
         const data = JSON.parse(text);
         reset(data);
@@ -425,7 +425,7 @@ function StatInputForm({ updateResult }: Props) {
             <Button colorScheme='teal' onClick={() => debugSaveJson(getValues())}>
               保存
             </Button>
-            <Button colorScheme='teal' onClick={() => debugLoadJson(getValues())}>
+            <Button colorScheme='teal' onClick={() => debugLoadJson()}>
               復元
             </Button>
           </HStack>
