@@ -1,5 +1,6 @@
 import {
   Button,
+  Center,
   FormControl,
   Grid,
   GridItem,
@@ -9,7 +10,6 @@ import {
   Stack,
   Text,
   Tooltip,
-  VStack,
 } from '@chakra-ui/react';
 import { useForm, useWatch } from 'react-hook-form';
 import { QuestionIcon } from '@chakra-ui/icons';
@@ -421,14 +421,14 @@ function StatInputForm({ updateResult }: Props) {
               />
             </GridItem>
           </Grid>
-          <HStack>
+          <Center>
             <Button colorScheme='teal' onClick={() => debugSaveJson(getValues())}>
               保存
             </Button>
-            <Button colorScheme='teal' onClick={() => debugLoadJson()}>
+            <Button ml='1' colorScheme='teal' onClick={() => debugLoadJson()}>
               復元
             </Button>
-          </HStack>
+          </Center>
           <Button mt={4} colorScheme='teal' type='submit'>
             計算
           </Button>
