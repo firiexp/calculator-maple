@@ -3,9 +3,9 @@ import jobData from '../data/jobdata';
 import weaponData from '../data/weapondata';
 
 function CalcOutputStats(player: InputStats): OutputStats {
-  const pureStats = player.playerLevel * 5 + 14;
+  const pureStats = player.playerLevel * 5 + 18;
   const combinedStats = player.mainStatsWithMH * 4 + player.subStatsWithoutBuff;
-  const MHAmount = pureStats / (player.MHLevel / 200);
+  const MHAmount = Math.floor(pureStats * (player.MHLevel / 200));
   const fixedMainStats =
     player.ArcaneSymbolStats +
     player.AuthenticSymbolStats +
@@ -44,6 +44,12 @@ function CalcOutputStats(player: InputStats): OutputStats {
         buffableMainStats <= approxbuffableMainStats + 2;
         buffableMainStats++
       ) {
+        console.log([
+          Percent,
+          buffableMainStats,
+          Math.floor(buffableMainStats * (1 + Percent / 100) + fixedMainStats),
+          Math.floor((buffableMainStats + MHAmount) * (1 + Percent / 100) + fixedMainStats),
+        ]);
         if (
           Math.floor(buffableMainStats * (1 + Percent / 100) + fixedMainStats) === player.mainStatsWithoutMH &&
           Math.floor((buffableMainStats + MHAmount) * (1 + Percent / 100) + fixedMainStats) === player.mainStatsWithMH

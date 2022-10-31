@@ -1,4 +1,16 @@
-import { Button, FormControl, Grid, GridItem, HStack, Input, Select, Stack, Text, Tooltip } from '@chakra-ui/react';
+import {
+  Button,
+  FormControl,
+  Grid,
+  GridItem,
+  HStack,
+  Input,
+  Select,
+  Stack,
+  Text,
+  Tooltip,
+  VStack,
+} from '@chakra-ui/react';
 import { useForm, useWatch } from 'react-hook-form';
 import { QuestionIcon } from '@chakra-ui/icons';
 import jobData from '../data/jobdata';
@@ -11,12 +23,46 @@ type Props = {
 };
 
 function StatInputForm({ updateResult }: Props) {
-  const { register, control, handleSubmit } = useForm<InputStats>({});
+  const { register, control, handleSubmit, getValues, reset } = useForm<InputStats>({});
   const watchJob = useWatch({
     control,
     name: 'job',
     defaultValue: '',
   });
+
+  const debugSaveJson = (data: InputStats) => {
+    const fileName = 'statcalculator.json';
+
+    const json = JSON.stringify(data, null, '  ');
+
+    const blob = new Blob([json], { type: 'application/json' });
+    const href = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = href;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const debugLoadJson = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'application/json';
+    input.onchange = (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const text = e.target?.result;
+        if (typeof text !== 'string') return;
+        const data = JSON.parse(text);
+        reset(data);
+      };
+      reader.readAsText(file);
+    };
+    input.click();
+  };
 
   return (
     <form
@@ -375,6 +421,14 @@ function StatInputForm({ updateResult }: Props) {
               />
             </GridItem>
           </Grid>
+          <HStack>
+            <Button colorScheme='teal' onClick={() => debugSaveJson(getValues())}>
+              保存
+            </Button>
+            <Button colorScheme='teal' onClick={() => debugLoadJson(getValues())}>
+              復元
+            </Button>
+          </HStack>
           <Button mt={4} colorScheme='teal' type='submit'>
             計算
           </Button>
