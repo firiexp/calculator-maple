@@ -23,9 +23,10 @@ export type InputStats = {
   kannaHP?: number;
 };
 
-export type OutputStats = {
+export type OutputStats = InputStats & {
   mainStatsPercent: number;
   subStatsPercent: number;
-  OverAllAttackPower: number;
   baseATT: number;
+  buffableMainStats: number;
+  fixedMainStats: number;
 };

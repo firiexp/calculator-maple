@@ -4,14 +4,14 @@ import Main from '../components/Main';
 import Header from '../components/Header';
 import SiteHead from '../components/SiteHead';
 import StatInputForm from '../components/StatInputForm';
-import { OutputStats } from '../data/formtype';
+import { OutputStats } from '../data/statstype';
 import StatOutput from '../components/StatOutput';
 
 function StatCalculator() {
   const [result, setResult] = useState<OutputStats | undefined>(undefined);
   return (
     <>
-      <SiteHead />
+      <SiteHead title='ステータス効率計算機' />
       <Container>
         <Header />
         <Main>

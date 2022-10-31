@@ -3,7 +3,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { QuestionIcon } from '@chakra-ui/icons';
 import jobData from '../data/jobdata';
 import weaponData from '../data/weapondata';
-import { InputStats, OutputStats } from '../data/formtype';
+import { InputStats, OutputStats } from '../data/statstype';
 import CalcOutputStats from '../lib/CalcOutputStats';
 
 type Props = {
@@ -24,7 +24,7 @@ function StatInputForm({ updateResult }: Props) {
         try {
           updateResult(CalcOutputStats(data));
         } catch (e) {
-          console.log(e);
+          console.error(e);
         }
       })}>
       <FormControl>
