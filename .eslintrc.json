@@ -21,6 +21,7 @@
       "html": "ignore",
       "custom": "ignore",
       "explicitSpread": "ignore"
-    }]
+    }],
+    "react/require-default-props": "off"
   }
 }
