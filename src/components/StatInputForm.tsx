@@ -1,17 +1,21 @@
-import { Button, Center, Grid, GridItem, HStack, Input, Select, Stack, Text, Tooltip } from '@chakra-ui/react';
+import { Button, Center, Grid, GridItem, Select, Stack, Text } from '@chakra-ui/react';
 import { useForm, useWatch } from 'react-hook-form';
-import { QuestionIcon } from '@chakra-ui/icons';
+import { yupResolver } from '@hookform/resolvers/yup';
 import jobData from '../data/jobdata';
 import weaponData from '../data/weapondata';
 import { InputStats, OutputStats } from '../data/statstype';
 import CalcOutputStats from '../lib/CalcOutputStats';
+import RhfStatInput from './RhfStatInput';
+import StatInputSchema from '../lib/StatInputSchema';
 
 type Props = {
   updateResult: (stats: OutputStats) => void;
 };
 
 function StatInputForm({ updateResult }: Props) {
-  const { register, control, handleSubmit, getValues, reset, formState } = useForm<InputStats>({});
+  const { register, control, handleSubmit, getValues, reset, formState } = useForm<InputStats>({
+    resolver: yupResolver(StatInputSchema),
+  });
   const watchJob = useWatch({
     control,
     name: 'job',
@@ -105,358 +109,191 @@ function StatInputForm({ updateResult }: Props) {
   const otherform = (
     <Stack>
       <Grid templateColumns='1fr 3fr' rowGap='1'>
-        <GridItem bg='blue.100'>
-          <Text p='1'>レベル</Text>
-        </GridItem>
-        <GridItem>
-          <Input
-            type='number'
-            placeholder='275'
-            size='sm'
-            isInvalid={formState.errors.playerLevel !== undefined}
-            {...register('playerLevel', {
-              required: true,
-              valueAsNumber: true,
-              min: { value: 200, message: '対応しているのはレベル200から300までです' },
-              max: { value: 300, message: '対応しているのはレベル200から300までです' },
-            })}
-          />
-          {formState.errors.playerLevel && <Text color='red.500'>{formState.errors.playerLevel.message}</Text>}
-        </GridItem>
+        <RhfStatInput
+          stat='playerLevel'
+          label='レベル'
+          placeholder='275'
+          register={register}
+          formState={formState}
+          bg='blue.100'
+        />
 
-        <GridItem bg='blue.100'>
-          <Text p='1'>最大ステータス攻撃力</Text>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='100000000'
-            size='sm'
-            isInvalid={formState.errors.statATT !== undefined}
-            {...register('statATT', {
-              required: true,
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='statATT'
+          label='最大ステータス攻撃力'
+          placeholder='100000000'
+          register={register}
+          formState={formState}
+          bg='blue.100'
+        />
       </Grid>
 
       <Grid templateRows='repeat(6, 1fr)' templateColumns='1fr 3fr' rowGap='1'>
-        <GridItem bg='blue.100'>
-          <HStack>
-            <Text p='1'>{watchJob !== '' && jobData[watchJob].mainStats.join('+').concat(' (MH適用)')}</Text>
-            <Tooltip label='メイプルヒーロー系スキルを使ったときの値' fontSize='sm'>
-              <QuestionIcon />
-            </Tooltip>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='50000'
-            size='sm'
-            isInvalid={formState.errors.mainStatsWithMH !== undefined}
-            {...register('mainStatsWithMH', {
-              required: true,
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='mainStatsWithMH'
+          label={watchJob !== '' && jobData[watchJob].mainStats.join('+').concat(' (MH適用)')}
+          placeholder='50000'
+          register={register}
+          formState={formState}
+          tooltipMessage='メイプルヒーロー系スキルを使ったときの値'
+          bg='blue.100'
+        />
 
-        <GridItem bg='blue.100'>
-          <HStack>
-            <Text p='1'>{watchJob !== '' && jobData[watchJob].mainStats.join('+').concat(' (MH未適用)')}</Text>
-            <Tooltip label='メイプルヒーロー系スキルを切ったときの値' fontSize='sm'>
-              <QuestionIcon />
-            </Tooltip>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='49000'
-            size='sm'
-            isInvalid={formState.errors.mainStatsWithoutMH !== undefined}
-            {...register('mainStatsWithoutMH', {
-              required: true,
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='mainStatsWithoutMH'
+          label={watchJob !== '' && jobData[watchJob].mainStats.join('+').concat(' (MH未適用)')}
+          placeholder='49000'
+          register={register}
+          formState={formState}
+          tooltipMessage='メイプルヒーロー系スキルを切ったときの値'
+          bg='blue.100'
+        />
 
-        <GridItem bg='blue.100'>
-          <HStack>
-            <Text p='1'>MHレベル</Text>
-            <Tooltip label='メイプルヒーロー系スキルのレベル' fontSize='sm'>
-              <QuestionIcon />
-            </Tooltip>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='30'
-            size='sm'
-            isInvalid={formState.errors.MHLevel !== undefined}
-            {...register('MHLevel', {
-              required: true,
-              valueAsNumber: true,
-              min: { value: 0, message: '0以上30以下の値を入力してください' },
-              max: { value: 30, message: '0以上30以下の値を入力してください' },
-            })}
-          />
-          {formState.errors.MHLevel && <Text color='red.500'>{formState.errors.MHLevel.message}</Text>}
-        </GridItem>
+        <RhfStatInput
+          stat='MHLevel'
+          label='MHレベル'
+          placeholder='30'
+          register={register}
+          formState={formState}
+          tooltipMessage='メイプルヒーロー系スキルのレベル'
+          bg='blue.100'
+        />
 
-        <GridItem bg='blue.100'>
-          <HStack>
-            <Text p='1'>{watchJob !== '' && jobData[watchJob].subStats.join('+').concat(' (バフ)')}</Text>
-            <Tooltip label='バフを使ってサブステータスを上げた後の値' fontSize='sm'>
-              <QuestionIcon />
-            </Tooltip>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='50000'
-            size='sm'
-            isInvalid={formState.errors.subStatsWithBuff !== undefined}
-            {...register('subStatsWithBuff', {
-              required: true,
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='subStatsWithBuff'
+          label={watchJob !== '' && jobData[watchJob].subStats.join('+').concat(' (バフ適用)')}
+          placeholder='4000'
+          register={register}
+          formState={formState}
+          tooltipMessage='バフを使ってサブステータスを上げた後の値'
+          bg='blue.100'
+        />
 
-        <GridItem bg='blue.100'>
-          <HStack>
-            <Text p='1'>{watchJob !== '' && jobData[watchJob].subStats.join('+').concat(' (素)')}</Text>
-            <Tooltip label='素の値' fontSize='sm'>
-              <QuestionIcon />
-            </Tooltip>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='49000'
-            size='sm'
-            isInvalid={formState.errors.subStatsWithoutBuff !== undefined}
-            {...register('subStatsWithoutBuff', {
-              required: true,
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='subStatsWithoutBuff'
+          label={watchJob !== '' && jobData[watchJob].subStats.join('+').concat(' (素)')}
+          placeholder='3900'
+          register={register}
+          formState={formState}
+          bg='blue.100'
+        />
 
-        <GridItem bg='blue.100'>
-          <HStack>
-            <Text p='1'>{watchJob !== '' && jobData[watchJob].subStats.join('+').concat(' バフ量')}</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='10'
-            size='sm'
-            isInvalid={formState.errors.subStatsBuffAmount !== undefined}
-            {...register('subStatsBuffAmount', {
-              required: true,
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='subStatsBuffAmount'
+          label={watchJob !== '' && jobData[watchJob].subStats.join('+').concat(' バフ量')}
+          placeholder='100'
+          register={register}
+          formState={formState}
+          bg='blue.100'
+        />
       </Grid>
 
       <Grid templateRows='repeat(5, 1fr)' templateColumns='3fr 5fr' rowGap='1'>
-        <GridItem bg='green.100'>
-          <HStack>
-            <Text p='1'>アーケインシンボル増加量</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='13200'
-            size='sm'
-            isInvalid={formState.errors.ArcaneSymbolStats !== undefined}
-            {...register('ArcaneSymbolStats', {
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='ArcaneSymbolStats'
+          label='アーケインシンボル増加量'
+          placeholder='13200'
+          register={register}
+          formState={formState}
+          bg='green.100'
+        />
 
-        <GridItem bg='green.100'>
-          <HStack>
-            <Text p='1'>オーセンティックシンボル増加量</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='5000'
-            size='sm'
-            isInvalid={formState.errors.AuthenticSymbolStats !== undefined}
-            {...register('AuthenticSymbolStats', {
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='AuthenticSymbolStats'
+          label='オーセンティックシンボル増加量'
+          placeholder='5000'
+          register={register}
+          formState={formState}
+          bg='green.100'
+        />
 
-        <GridItem bg='green.100'>
-          <HStack>
-            <Text p='1'>ハイパーステータス</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='120'
-            size='sm'
-            isInvalid={formState.errors.HyperStats !== undefined}
-            {...register('HyperStats', {
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='HyperStats'
+          label={watchJob !== '' && 'ハイパーステータス '.concat(jobData[watchJob].mainStats.join('+'))}
+          placeholder='5000'
+          register={register}
+          formState={formState}
+          bg='green.100'
+        />
 
-        <GridItem bg='green.100'>
-          <HStack>
-            <Text p='1'>アビリティ</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='0'
-            size='sm'
-            isInvalid={formState.errors.AbilityStats !== undefined}
-            {...register('AbilityStats', {
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='AbilityStats'
+          label={watchJob !== '' && 'アビリティ '.concat(jobData[watchJob].mainStats.join('+'))}
+          placeholder='5000'
+          register={register}
+          formState={formState}
+          bg='green.100'
+        />
 
-        <GridItem bg='green.100'>
-          <HStack>
-            <Text p='1'>ユニオン攻撃隊員効果</Text>
-            <Tooltip label='攻撃隊占領効果とは異なります。' fontSize='sm'>
-              <QuestionIcon />
-            </Tooltip>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='1000'
-            size='sm'
-            isInvalid={formState.errors.UnionAttackerStats !== undefined}
-            {...register('UnionAttackerStats', {
-              valueAsNumber: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='UnionAttackerStats'
+          label={watchJob !== '' && 'ユニオン攻撃隊員効果 '.concat(jobData[watchJob].mainStats.join('+'))}
+          placeholder='1000'
+          register={register}
+          formState={formState}
+          tooltipMessage='攻撃隊占領効果とは異なります。'
+          bg='green.100'
+        />
       </Grid>
 
       <Grid templateRows='repeat(5, 1fr)' templateColumns='1fr 3fr' rowGap='1'>
-        <GridItem bg='red.100'>
-          <HStack>
-            <Text p='1'>ダメージ (%)</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='50'
-            size='sm'
-            isInvalid={formState.errors.DamagePercent !== undefined}
-            {...register('DamagePercent', {
-              valueAsNumber: true,
-              required: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='DamagePercent'
+          label='ダメージ (%)'
+          placeholder='50'
+          register={register}
+          formState={formState}
+          bg='red.100'
+        />
 
-        <GridItem bg='red.100'>
-          <HStack>
-            <Text p='1'>ボスダメージ (%)</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='450'
-            size='sm'
-            isInvalid={formState.errors.BossDamagePercent !== undefined}
-            {...register('BossDamagePercent', {
-              valueAsNumber: true,
-              required: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='BossDamagePercent'
+          label='ボスダメージ (%)'
+          placeholder='450'
+          register={register}
+          formState={formState}
+          bg='red.100'
+        />
 
-        <GridItem bg='red.100'>
-          <HStack>
-            <Text p='1'>最終ダメージ (%)</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='90.40'
-            size='sm'
-            isInvalid={formState.errors.FinalDamagePercent !== undefined}
-            {...register('FinalDamagePercent', {
-              valueAsNumber: true,
-              required: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='FinalDamagePercent'
+          label='最終ダメージ (%)'
+          placeholder='90.40'
+          register={register}
+          formState={formState}
+          bg='red.100'
+        />
 
-        <GridItem bg='red.100'>
-          <HStack>
-            <Text p='1'>防御率無視 (%)</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='95.00'
-            size='sm'
-            isInvalid={formState.errors.IgnoreDEFPercent !== undefined}
-            {...register('IgnoreDEFPercent', {
-              valueAsNumber: true,
-              required: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='IgnoreDEFPercent'
+          label='防御率無視 (%)'
+          placeholder='90.40'
+          register={register}
+          formState={formState}
+          bg='red.100'
+        />
 
-        <GridItem bg='red.100'>
-          <HStack>
-            <Text p='1'>クリダメージ (%)</Text>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='90'
-            size='sm'
-            isInvalid={formState.errors.CriticalDamagePercent !== undefined}
-            {...register('CriticalDamagePercent', {
-              valueAsNumber: true,
-              required: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='CriticalDamagePercent'
+          label='クリダメージ (%)'
+          placeholder='89.00'
+          register={register}
+          formState={formState}
+          bg='red.100'
+        />
 
-        <GridItem bg='red.100'>
-          <HStack>
-            <Text p='1'>
-              {jobData[watchJob] !== undefined &&
-                (jobData[watchJob].mainStats.includes('INT') ? '魔力' : '攻撃力').concat('% (合計)')}
-            </Text>
-            <Tooltip
-              label={`装備、ファミリア、ファミリアバッジ${watchJob === 'Hayato' ? '、剣気バフ' : ''}の合計`}
-              fontSize='sm'>
-              <QuestionIcon />
-            </Tooltip>
-          </HStack>
-        </GridItem>
-        <GridItem>
-          <Input
-            placeholder='90'
-            size='sm'
-            isInvalid={formState.errors.ATTPercent !== undefined}
-            {...register('ATTPercent', {
-              valueAsNumber: true,
-              required: true,
-            })}
-          />
-        </GridItem>
+        <RhfStatInput
+          stat='ATTPercent'
+          label={
+            jobData[watchJob] !== undefined &&
+            (jobData[watchJob].mainStats.includes('INT') ? '魔力' : '攻撃力').concat('% (合計)')
+          }
+          placeholder='90'
+          register={register}
+          formState={formState}
+          bg='red.100'
+          tooltipMessage={`装備、ファミリア、ファミリアバッジ${watchJob === 'Hayato' ? '、剣気バフ' : ''}の合計`}
+        />
       </Grid>
     </Stack>
   );
