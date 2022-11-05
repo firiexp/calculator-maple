@@ -51,7 +51,7 @@ function statOutput({ result }: Props) {
         </GridItem>
       </Grid>
       <Text fontSize='2xl'>最終ダメージ換算</Text>
-      <Grid templateRows='repeat(3, 1fr)' templateColumns='1fr 3fr' rowGap='1' border='1px'>
+      <Grid templateRows='repeat(4, 1fr)' templateColumns='1fr 3fr' rowGap='1' border='1px'>
         <GridItem>
           <HStack>
             <Text p='1'>{mainStatsStr.concat(' 1% = ')}</Text>
@@ -79,6 +79,15 @@ function statOutput({ result }: Props) {
           <Text p='1'>{`最終ダメージ ${percentFormatter.format(
             1 / (100 + result.DamagePercent + result.BossDamagePercent)
           )}`}</Text>
+        </GridItem>
+
+        <GridItem>
+          <HStack>
+            <Text p='1'>{'クリダメージ 1% = '}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{`最終ダメージ ${percentFormatter.format(1 / (135 + result.CriticalDamagePercent))}`}</Text>
         </GridItem>
       </Grid>
     </>
