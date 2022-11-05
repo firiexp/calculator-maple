@@ -7,35 +7,81 @@ type Props = {
 };
 
 function statOutput({ result }: Props) {
+  if (!result || result.job === '') {
+    return {};
+  }
+
+  const { mainStats } = jobData[result.job];
+  // const { subStats } = jobData[result.job];
+  const mainStatsStr = jobData[result.job].mainStats.join('+');
+  const subStatsStr = jobData[result.job].subStats.join('+');
+  const ATTStr = mainStats.includes('INT') ? '魔力' : '攻撃力';
+
+  const percentFormatter = new Intl.NumberFormat('en-US', { style: 'percent', maximumSignificantDigits: 3 });
+
   return (
-    <Grid templateRows='repeat(5, 1fr)' templateColumns='1fr 3fr' rowGap='1'>
-      <GridItem>
-        <HStack>
-          <Text p='1'>{result.job !== '' && jobData[result.job].mainStats.join('+').concat(' %')}</Text>
-        </HStack>
-      </GridItem>
-      <GridItem>
-        <Text p='1'>{result && result.mainStatsPercent}</Text>
-      </GridItem>
+    <>
+      <Text fontSize='2xl'>非表示ステータス</Text>
+      <Grid templateRows='repeat(3, 1fr)' templateColumns='1fr 3fr' rowGap='1' border='1px'>
+        <GridItem>
+          <HStack>
+            <Text p='1'>{mainStatsStr.concat(' %')}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{result.mainStatsPercent}</Text>
+        </GridItem>
 
-      <GridItem>
-        <HStack>
-          <Text p='1'>{result.job !== '' && jobData[result.job].subStats.join('+').concat(' %')}</Text>
-        </HStack>
-      </GridItem>
-      <GridItem>
-        <Text p='1'>{result && result.subStatsPercent}</Text>
-      </GridItem>
+        <GridItem>
+          <HStack>
+            <Text p='1'>{subStatsStr.concat(' %')}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{result.subStatsPercent}</Text>
+        </GridItem>
 
-      <GridItem>
-        <HStack>
-          <Text p='1'>{result.job !== '' && (jobData[result.job].mainStats.includes('INT') ? '魔力' : '攻撃力')}</Text>
-        </HStack>
-      </GridItem>
-      <GridItem>
-        <Text p='1'>{result && result.baseATT}</Text>
-      </GridItem>
-    </Grid>
+        <GridItem>
+          <HStack>
+            <Text p='1'>{ATTStr}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{result.baseATT}</Text>
+        </GridItem>
+      </Grid>
+      <Text fontSize='2xl'>最終ダメージ換算</Text>
+      <Grid templateRows='repeat(3, 1fr)' templateColumns='1fr 3fr' rowGap='1' border='1px'>
+        <GridItem>
+          <HStack>
+            <Text p='1'>{mainStatsStr.concat(' 1% = ')}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{`最終ダメージ ${percentFormatter.format(1 / (100 + result.mainStatsPercent))}`}</Text>
+        </GridItem>
+
+        <GridItem>
+          <HStack>
+            <Text p='1'>{ATTStr.concat(' 1 = ')}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{`最終ダメージ ${percentFormatter.format(1 / result.baseATT)}`}</Text>
+        </GridItem>
+
+        <GridItem>
+          <HStack>
+            <Text p='1'>{'ボスダメージ 1% = '}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{`最終ダメージ ${percentFormatter.format(
+            1 / (100 + result.DamagePercent + result.BossDamagePercent)
+          )}`}</Text>
+        </GridItem>
+      </Grid>
+    </>
   );
 }
 
