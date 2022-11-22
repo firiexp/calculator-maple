@@ -76,6 +76,28 @@ function statOutput({ result }: Props) {
 
         <GridItem>
           <HStack>
+            <Text p='1'>{subStatsStr.concat(' 1% = ')}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{`最終ダメージ ${percentFormatter.format(
+            result.subStatsWithBuff / (100 * (result.mainStatsWithMH * 4 + result.subStatsWithBuff))
+          )}`}</Text>
+        </GridItem>
+
+        <GridItem>
+          <HStack>
+            <Text p='1'>{subStatsStr.concat(' 1 = ')}</Text>
+          </HStack>
+        </GridItem>
+        <GridItem>
+          <Text p='1'>{`最終ダメージ ${percentFormatter.format(
+            (1 + result.subStatsPercent / 100) / (result.mainStatsWithMH * 4 + result.subStatsWithBuff)
+          )}`}</Text>
+        </GridItem>
+
+        <GridItem>
+          <HStack>
             <Text p='1'>{ATTStr.concat(' 1 = ')}</Text>
           </HStack>
         </GridItem>
