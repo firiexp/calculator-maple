@@ -6,9 +6,9 @@ type Props = {
   result: OutputStats;
 };
 
-function statOutput({ result }: Props) {
+function StatOutput({ result }: Props): JSX.Element | null {
   if (!result || result.job === '') {
-    return {};
+    return null;
   }
 
   const { mainStats } = jobData[result.job];
@@ -129,4 +129,4 @@ function statOutput({ result }: Props) {
   );
 }
 
-export default statOutput;
+export default StatOutput;
