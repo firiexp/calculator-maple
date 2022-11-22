@@ -106,7 +106,7 @@ function StatInputForm({ updateResult }: Props) {
     </Grid>
   );
 
-  const otherform = (
+  const otherStatsForm = (
     <Stack>
       <Grid templateColumns='1fr 3fr' rowGap='1'>
         <RhfStatInput
@@ -308,7 +308,7 @@ function StatInputForm({ updateResult }: Props) {
       })}>
       <Stack>
         {jobandweaponform}
-        {watchWeapon !== '' && otherform}
+        {watchWeapon !== '' && otherStatsForm}
         <Center>
           <Button colorScheme='teal' onClick={() => debugSaveJson(getValues())}>
             保存

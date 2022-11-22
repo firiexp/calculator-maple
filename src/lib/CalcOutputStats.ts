@@ -26,7 +26,7 @@ function CalcOutputStats(player: InputStats): OutputStats {
     while (calcStatATT(ng) <= player.statATT) ng *= 2;
     while (ng - ok > 1) {
       const mid = Math.floor((ok + ng) / 2);
-      console.log([mid, calcStatATT(mid)]);
+      // console.log([mid, calcStatATT(mid)]);
       if (calcStatATT(mid) <= player.statATT) ok = mid;
       else ng = mid;
     }
