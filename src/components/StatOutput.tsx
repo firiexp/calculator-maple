@@ -58,7 +58,9 @@ function statOutput({ result }: Props) {
           </HStack>
         </GridItem>
         <GridItem>
-          <Text p='1'>{`最終ダメージ ${percentFormatter.format(1 / (100 + result.mainStatsPercent))}`}</Text>
+          <Text p='1'>{`最終ダメージ ${percentFormatter.format(
+            result.buffableMainStats / (100 * (result.mainStatsWithMH + result.subStatsWithBuff / 4))
+          )}`}</Text>
         </GridItem>
 
         <GridItem>
