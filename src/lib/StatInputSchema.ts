@@ -7,7 +7,7 @@ const StatInputSchema: yup.SchemaOf<InputStats> = yup.object({
   playerLevel: yup
     .number()
     .required()
-    .min(200, '200以上300以下でなければいけません')
+    .min(200, '200以上300以下の整数を入力してください')
     .max(300, '200以上300以下でなければいけません')
     .typeError('整数を入力してください')
     .integer(),
@@ -20,8 +20,9 @@ const StatInputSchema: yup.SchemaOf<InputStats> = yup.object({
   MHLevel: yup
     .number()
     .required()
-    .min(1, '1以上30以下でなければいけません')
-    .max(30, '1から30以下でなければいけません')
+    .min(1, '1以上30以下の整数を入力してください')
+    .max(30, '1から30以下の整数を入力してください')
+    .typeError('1以上30以下の整数を入力してください')
     .integer(),
   ArcaneSymbolStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
   AuthenticSymbolStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
