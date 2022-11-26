@@ -1,3 +1,5 @@
+import { InputStats } from '../data/statstype';
+
 export const debugSaveJson = (data: InputStats) => {
   const fileName = 'statcalculator.json';
 
@@ -13,7 +15,7 @@ export const debugSaveJson = (data: InputStats) => {
   document.body.removeChild(link);
 };
 
-export const debugLoadJson = () => {
+export const debugLoadJson = (resetData: (arg0: InputStats) => void) => {
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = 'application/json';
@@ -24,8 +26,8 @@ export const debugLoadJson = () => {
     reader.onload = (f) => {
       const text = f.target?.result;
       if (typeof text !== 'string') return;
-      const data = JSON.parse(text);
-      reset(data);
+      const data = JSON.parse(text) as InputStats;
+      resetData(data);
     };
     reader.readAsText(file);
   };

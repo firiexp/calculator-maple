@@ -281,7 +281,7 @@ function StatInputForm({ updateResult }: Props) {
           <Button colorScheme='teal' onClick={() => debugSaveJson(getValues())}>
             保存
           </Button>
-          <Button ml='1' colorScheme='teal' onClick={() => debugLoadJson()}>
+          <Button ml='1' colorScheme='teal' onClick={() => debugLoadJson(reset)}>
             復元
           </Button>
         </Center>
