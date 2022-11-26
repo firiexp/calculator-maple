@@ -7,6 +7,7 @@ import { InputStats, OutputStats } from '../data/statstype';
 import CalcOutputStats from '../lib/CalcOutputStats';
 import RhfStatInput from './RhfStatInput';
 import StatInputSchema from '../lib/StatInputSchema';
+import { debugSaveJson, debugLoadJson } from '../lib/debugJson';
 
 type Props = {
   updateResult: (stats: OutputStats) => void;
@@ -28,39 +29,6 @@ function StatInputForm({ updateResult }: Props) {
     defaultValue: '',
   });
 
-  const debugSaveJson = (data: InputStats) => {
-    const fileName = 'statcalculator.json';
-
-    const json = JSON.stringify(data, null, '  ');
-
-    const blob = new Blob([json], { type: 'application/json' });
-    const href = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = href;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  const debugLoadJson = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'application/json';
-    input.onchange = (e) => {
-      const file = (e.target as HTMLInputElement).files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (f) => {
-        const text = f.target?.result;
-        if (typeof text !== 'string') return;
-        const data = JSON.parse(text);
-        reset(data);
-      };
-      reader.readAsText(file);
-    };
-    input.click();
-  };
   const jobandweaponform = (
     <Grid templateRows='repeat(2, 1fr)' templateColumns='1fr 3fr' rowGap='1'>
       <GridItem bg='blue.100'>
