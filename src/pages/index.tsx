@@ -1,4 +1,4 @@
-import { Heading, Text, Link as ChakraLink } from '@chakra-ui/react';
+import { Heading, Link as ChakraLink } from '@chakra-ui/react';
 import NextLink from 'next/link';
 import Container from '../components/Container';
 import Main from '../components/Main';
@@ -8,12 +8,11 @@ import SiteHead from '../components/SiteHead';
 function Index() {
   return (
     <>
-      <SiteHead />
+      <SiteHead title='Maple Calculator' />
       <Container>
         <Header />
         <Main>
-          <Heading>Maple Tools</Heading>
-          <Text fontSize='xl'>Next.js, TypeScript, Chakra UI</Text>
+          <Heading>Maple Calculator</Heading>
           <NextLink href='/sf' passHref>
             <ChakraLink>スターフォースシミュレーター</ChakraLink>
           </NextLink>
