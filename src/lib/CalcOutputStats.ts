@@ -7,11 +7,7 @@ function CalcOutputStats(player: InputStats): OutputStats {
   const combinedStats = player.mainStatsWithMH * 4 + player.subStatsWithoutBuff;
   const MHAmount = Math.floor(pureStats * (player.MHLevel / 200));
   const fixedMainStats =
-    player.ArcaneSymbolStats +
-    player.AuthenticSymbolStats +
-    player.HyperStats +
-    player.AbilityStats +
-    player.UnionAttackerStats;
+    player.ARCMainStats + player.AUTMainStats + player.hyperMainStats + player.abilityMainStats + player.unionMainStats;
   const unfixedMainStats = player.mainStatsWithoutMH - fixedMainStats;
 
   const calcStatATT = (ATT: number) => {
@@ -34,17 +30,13 @@ function CalcOutputStats(player: InputStats): OutputStats {
   })();
 
   // ステータス%がかかる対象のステータスと、ステータス%の近似値を求め、その周辺を探索し真の値を求める
-  const getMainStatsPercentAndBuffableMainStats = (): [number, number] => {
+  const determineMainStatsStructure = (): [number, number] => {
     const deltaMainStats = player.mainStatsWithMH - player.mainStatsWithoutMH;
 
-    const approxMainStatsPercent = Math.floor(100 * (deltaMainStats / ((pureStats * player.MHLevel) / 2 / 100) - 1));
-    for (let Percent = approxMainStatsPercent - 1; Percent <= approxMainStatsPercent + 2; Percent++) {
-      const approxbuffableMainStats = Math.floor(unfixedMainStats / (1 + Percent / 100));
-      for (
-        let buffableMainStats = approxbuffableMainStats - 1;
-        buffableMainStats <= approxbuffableMainStats + 2;
-        buffableMainStats++
-      ) {
+    const approxPercent = Math.floor(100 * (deltaMainStats / ((pureStats * player.MHLevel) / 2 / 100) - 1));
+    for (let Percent = approxPercent - 1; Percent <= approxPercent + 2; Percent++) {
+      const approxValue = Math.floor(unfixedMainStats / (1 + Percent / 100));
+      for (let buffableMainStats = approxValue - 1; buffableMainStats <= approxValue + 2; buffableMainStats++) {
         if (
           Math.floor(buffableMainStats * (1 + Percent / 100) + fixedMainStats) === player.mainStatsWithoutMH &&
           Math.floor((buffableMainStats + MHAmount) * (1 + Percent / 100) + fixedMainStats) === player.mainStatsWithMH
@@ -55,7 +47,7 @@ function CalcOutputStats(player: InputStats): OutputStats {
     }
     return [NaN, NaN];
   };
-  const [mainStatsPercent, buffableMainStats] = getMainStatsPercentAndBuffableMainStats();
+  const [mainStatsPercent, buffableMainStats] = determineMainStatsStructure();
 
   return {
     ...player,

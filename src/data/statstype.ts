@@ -9,11 +9,11 @@ export type InputStats = {
   subStatsWithoutBuff: number;
   subStatsBuffAmount: number;
   MHLevel: number;
-  ArcaneSymbolStats: number;
-  AuthenticSymbolStats: number;
-  HyperStats: number;
-  AbilityStats: number;
-  UnionAttackerStats: number;
+  ARCMainStats: number;
+  AUTMainStats: number;
+  hyperMainStats: number;
+  abilityMainStats: number;
+  unionMainStats: number;
   DamagePercent: number;
   BossDamagePercent: number;
   FinalDamagePercent: number;

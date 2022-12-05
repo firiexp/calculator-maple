@@ -158,7 +158,7 @@ function StatInputForm({ updateResult }: Props) {
 
       <Grid templateRows='repeat(5, 1fr)' templateColumns='3fr 5fr' rowGap='1'>
         <RhfStatInput
-          stat='ArcaneSymbolStats'
+          stat='ARCMainStats'
           label='アーケインシンボル増加量'
           placeholder='13200'
           register={register}
@@ -167,7 +167,7 @@ function StatInputForm({ updateResult }: Props) {
         />
 
         <RhfStatInput
-          stat='AuthenticSymbolStats'
+          stat='AUTMainStats'
           label='オーセンティックシンボル増加量'
           placeholder='5000'
           register={register}
@@ -176,7 +176,7 @@ function StatInputForm({ updateResult }: Props) {
         />
 
         <RhfStatInput
-          stat='HyperStats'
+          stat='hyperMainStats'
           label={watchJob !== '' && 'ハイパーステータス '.concat(jobData[watchJob].mainStats.join('+'))}
           placeholder='5000'
           register={register}
@@ -185,7 +185,7 @@ function StatInputForm({ updateResult }: Props) {
         />
 
         <RhfStatInput
-          stat='AbilityStats'
+          stat='abilityMainStats'
           label={watchJob !== '' && 'アビリティ '.concat(jobData[watchJob].mainStats.join('+'))}
           placeholder='5000'
           register={register}
@@ -194,7 +194,7 @@ function StatInputForm({ updateResult }: Props) {
         />
 
         <RhfStatInput
-          stat='UnionAttackerStats'
+          stat='unionMainStats'
           label={watchJob !== '' && 'ユニオン攻撃隊員効果 '.concat(jobData[watchJob].mainStats.join('+'))}
           placeholder='1000'
           register={register}
