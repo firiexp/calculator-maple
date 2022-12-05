@@ -204,6 +204,36 @@ function StatInputForm({ updateResult }: Props) {
         />
       </Grid>
 
+      <Grid templateRows='repeat(3, 1fr)' templateColumns='3fr 5fr' rowGap='1'>
+        <RhfStatInput
+          stat='hyperSubStats'
+          label={watchJob !== '' && 'ハイパーステータス '.concat(jobData[watchJob].subStats.join('+'))}
+          placeholder='5000'
+          register={register}
+          formState={formState}
+          bg='green.100'
+        />
+
+        <RhfStatInput
+          stat='abilitySubStats'
+          label={watchJob !== '' && 'アビリティ '.concat(jobData[watchJob].subStats.join('+'))}
+          placeholder='5000'
+          register={register}
+          formState={formState}
+          bg='green.100'
+        />
+
+        <RhfStatInput
+          stat='unionSubStats'
+          label={watchJob !== '' && 'ユニオン攻撃隊員効果 '.concat(jobData[watchJob].subStats.join('+'))}
+          placeholder='1000'
+          register={register}
+          formState={formState}
+          tooltipMessage='攻撃隊占領効果とは異なります。'
+          bg='green.100'
+        />
+      </Grid>
+
       <Grid templateRows='repeat(5, 1fr)' templateColumns='1fr 3fr' rowGap='1'>
         <RhfStatInput
           stat='DamagePercent'

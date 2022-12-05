@@ -14,6 +14,9 @@ export type InputStats = {
   hyperMainStats: number;
   abilityMainStats: number;
   unionMainStats: number;
+  hyperSubStats: number;
+  abilitySubStats: number;
+  unionSubStats: number;
   DamagePercent: number;
   BossDamagePercent: number;
   FinalDamagePercent: number;
@@ -29,4 +32,6 @@ export type OutputStats = InputStats & {
   baseATT: number;
   buffableMainStats: number;
   fixedMainStats: number;
+  buffableSubStats: number;
+  fixedSubStats: number;
 };

@@ -6,9 +6,13 @@ function CalcOutputStats(player: InputStats): OutputStats {
   const pureStats = player.playerLevel * 5 + 18;
   const combinedStats = player.mainStatsWithMH * 4 + player.subStatsWithoutBuff;
   const MHAmount = Math.floor(pureStats * (player.MHLevel / 200));
+
   const fixedMainStats =
     player.ARCMainStats + player.AUTMainStats + player.hyperMainStats + player.abilityMainStats + player.unionMainStats;
+  const fixedSubStats = player.hyperSubStats + player.abilitySubStats + player.unionSubStats;
+
   const unfixedMainStats = player.mainStatsWithoutMH - fixedMainStats;
+  const unfixedSubStats = player.subStatsWithBuff - fixedSubStats;
 
   const calcStatATT = (ATT: number) => {
     const innerATT = Math.round((weaponData[player.weapon].weaponMultiplier * combinedStats * ATT) / 100);
@@ -57,6 +61,8 @@ function CalcOutputStats(player: InputStats): OutputStats {
       (1 + (player.ATTPercent + jobData[player.job].skillATTPercent) / 100)
   );
 
+  const buffableSubStats = Math.floor(unfixedSubStats / (1 + subStatsPercent / 100));
+
   return {
     ...player,
     mainStatsPercent,
@@ -64,6 +70,8 @@ function CalcOutputStats(player: InputStats): OutputStats {
     baseATT,
     buffableMainStats,
     fixedMainStats,
+    buffableSubStats,
+    fixedSubStats,
   };
 }
 

@@ -81,7 +81,7 @@ function StatOutput({ result }: Props): JSX.Element | null {
         </GridItem>
         <GridItem>
           <Text p='1'>{`最終ダメージ ${percentFormatter.format(
-            result.subStatsWithBuff / (100 * (result.mainStatsWithMH * 4 + result.subStatsWithBuff))
+            result.buffableSubStats / (100 * (result.mainStatsWithMH * 4 + result.subStatsWithBuff))
           )}`}</Text>
         </GridItem>
 
