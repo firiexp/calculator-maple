@@ -24,11 +24,11 @@ const StatInputSchema: yup.SchemaOf<InputStats> = yup.object({
     .max(30, '1から30以下の整数を入力してください')
     .typeError('1以上30以下の整数を入力してください')
     .integer(),
-  ArcaneSymbolStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
-  AuthenticSymbolStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
-  HyperStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
-  AbilityStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
-  UnionAttackerStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
+  ARCMainStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
+  AUTMainStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
+  hyperMainStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
+  abilityMainStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
+  unionMainStats: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
   DamagePercent: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
   BossDamagePercent: yup.number().required().min(0, '値が負です').typeError('整数を入力してください').integer(),
   FinalDamagePercent: yup.number().required().min(0, '値が負です').typeError('整数を入力してください'),
