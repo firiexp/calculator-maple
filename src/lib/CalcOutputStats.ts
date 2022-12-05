@@ -47,18 +47,21 @@ function CalcOutputStats(player: InputStats): OutputStats {
     }
     return [NaN, NaN];
   };
+
   const [mainStatsPercent, buffableMainStats] = determineMainStatsStructure();
+  const subStatsPercent = Math.ceil(
+    100 * ((player.subStatsWithBuff - player.subStatsWithoutBuff) / player.subStatsBuffAmount - 1)
+  );
+  const baseATT = Math.ceil(
+    (buffedATT - (player.kannaHP ? Math.floor(player.kannaHP / 700) : 0)) /
+      (1 + (player.ATTPercent + jobData[player.job].skillATTPercent) / 100)
+  );
 
   return {
     ...player,
     mainStatsPercent,
-    subStatsPercent: Math.ceil(
-      100 * ((player.subStatsWithBuff - player.subStatsWithoutBuff) / player.subStatsBuffAmount - 1)
-    ),
-    baseATT: Math.ceil(
-      (buffedATT - (player.kannaHP ? Math.floor(player.kannaHP / 700) : 0)) /
-        (1 + (player.ATTPercent + jobData[player.job].skillATTPercent) / 100)
-    ),
+    subStatsPercent,
+    baseATT,
     buffableMainStats,
     fixedMainStats,
   };
